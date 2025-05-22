@@ -5,9 +5,10 @@ import { Users, MessageSquare, Heart, MessageCircleMore, Download, Bell } from '
 import { ForumPost } from '../types';
 import { createClient } from '@supabase/supabase-js';
 
+// Initialize Supabase client with empty values - will be updated when env vars are available
 const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
+  import.meta.env.VITE_SUPABASE_URL || 'http://placeholder-url',
+  import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-key'
 );
 
 const CommunitySection: React.FC = () => {
@@ -17,6 +18,7 @@ const CommunitySection: React.FC = () => {
   const [topicCount, setTopicCount] = useState(0);
   const [weeklyPosts, setWeeklyPosts] = useState(0);
   const [showAppNotification, setShowAppNotification] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const [headerRef, headerInView] = useInView({
     triggerOnce: true,
@@ -24,21 +26,27 @@ const CommunitySection: React.FC = () => {
   });
 
   useEffect(() => {
+    if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
+      setError('Supabase configuration is missing. Please connect to Supabase first.');
+      setIsLoading(false);
+      return;
+    }
     fetchPosts();
     fetchStats();
   }, []);
 
   const fetchPosts = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error: fetchError } = await supabase
         .from('posts')
         .select('*, user:users(*)')
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (fetchError) throw fetchError;
       setPosts(data || []);
     } catch (error) {
       console.error('Error fetching posts:', error);
+      setError('Failed to load posts. Please try again later.');
     } finally {
       setIsLoading(false);
     }
@@ -73,12 +81,13 @@ const CommunitySection: React.FC = () => {
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8 p-4 glassmorphism flex items-center justify-between"
+            className="mb-8 p-4 glassmorphism flex items-center justify-between relative overflow-hidden"
           >
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-halo-blue via-halo-green to-halo-blue animate-pulse"></div>
             <div className="flex items-center gap-4">
               <div className="relative">
-                <Bell className="w-6 h-6 text-halo-green" />
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+                <Bell className="w-6 h-6 text-halo-green animate-pulse" />
+                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></span>
               </div>
               <p className="text-white">
                 Download the HALO App to unlock full features and real-time health monitoring
@@ -86,7 +95,7 @@ const CommunitySection: React.FC = () => {
             </div>
             <div className="flex items-center gap-4">
               <button 
-                className="button-primary flex items-center gap-2"
+                className="button-primary flex items-center gap-2 animate-pulse"
                 onClick={() => alert('App download coming soon!')}
               >
                 <Download className="w-5 h-5" />
@@ -131,7 +140,19 @@ const CommunitySection: React.FC = () => {
             </div>
             
             <div className="space-y-6">
-              {isLoading ? (
+              {error ? (
+                <div className="glassmorphism p-8 text-center">
+                  <MessageSquare className="w-12 h-12 text-accent-error mx-auto mb-4" />
+                  <h4 className="text-xl font-semibold mb-2">Error</h4>
+                  <p className="text-halo-gray-300 mb-4">{error}</p>
+                  <button 
+                    className="button-primary"
+                    onClick={() => window.location.reload()}
+                  >
+                    Try Again
+                  </button>
+                </div>
+              ) : isLoading ? (
                 <div className="text-center py-8">
                   <div className="w-8 h-8 border-2 border-halo-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                   <p className="text-halo-gray-300">Loading discussions...</p>

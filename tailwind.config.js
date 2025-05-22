@@ -9,26 +9,26 @@ export default {
       colors: {
         halo: {
           black: '#111111',
-          green: '#1DB954',
-          blue: '#0070F3',
-          dark: '#050505',
-          light: '#F5F5F7',
+          green: '#00E676',  // More vibrant green
+          blue: '#2196F3',   // Brighter blue
+          dark: '#030303',   // Darker background
+          light: '#FFFFFF',  // Pure white
           gray: {
-            100: '#F5F5F7',
-            200: '#E5E5E7',
-            300: '#D5D5D7',
-            400: '#B5B5B7',
-            500: '#959597',
-            600: '#757577',
-            700: '#555557',
-            800: '#353537',
-            900: '#151517',
+            100: '#F8F9FA',
+            200: '#E9ECEF',
+            300: '#DEE2E6',
+            400: '#CED4DA',
+            500: '#ADB5BD',
+            600: '#6C757D',
+            700: '#495057',
+            800: '#212529',
+            900: '#101214',
           },
         },
         accent: {
-          success: '#34D399',
-          warning: '#FBBF24',
-          error: '#EF4444',
+          success: '#4CAF50',
+          warning: '#FFC107',
+          error: '#F44336',
         },
       },
       backgroundImage: {
