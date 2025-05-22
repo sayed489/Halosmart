@@ -1,54 +1,107 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Users, MessageSquare, Heart, MessageCircleMore } from 'lucide-react';
+import { Users, MessageSquare, Heart, MessageCircleMore, Download, Bell } from 'lucide-react';
 import { ForumPost } from '../types';
+import { createClient } from '@supabase/supabase-js';
 
-const forumPosts: ForumPost[] = [
-  {
-    id: 1,
-    user: {
-      name: 'Alex Johnson',
-      avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    },
-    content: 'Just got my HALO ring today in the blue color. The build quality is exceptional, and the app setup was a breeze. Already tracking my heart rate patterns!',
-    date: '2 hours ago',
-    likes: 24,
-    replies: 5,
-  },
-  {
-    id: 2,
-    user: {
-      name: 'Sarah Chen',
-      avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    },
-    content: 'Has anyone figured out how to optimize battery life? I\'m getting about 5 days, but I\'ve heard others are stretching to 7 days with some settings adjustments.',
-    date: '5 hours ago',
-    likes: 18,
-    replies: 12,
-  },
-  {
-    id: 3,
-    user: {
-      name: 'Michael Rivera',
-      avatar: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    },
-    content: 'The stress detection feature has been eye-opening. I never realized how much my afternoon meetings were affecting my stress levels until HALO started showing the patterns.',
-    date: '1 day ago',
-    likes: 36,
-    replies: 8,
-  },
-];
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 const CommunitySection: React.FC = () => {
+  const [posts, setPosts] = useState<ForumPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [userCount, setUserCount] = useState(0);
+  const [topicCount, setTopicCount] = useState(0);
+  const [weeklyPosts, setWeeklyPosts] = useState(0);
+  const [showAppNotification, setShowAppNotification] = useState(true);
+
   const [headerRef, headerInView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  useEffect(() => {
+    fetchPosts();
+    fetchStats();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('posts')
+        .select('*, user:users(*)')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setPosts(data || []);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const fetchStats = async () => {
+    try {
+      const { data: users } = await supabase
+        .from('users')
+        .select('count');
+      setUserCount(users?.[0]?.count || 0);
+
+      const { data: topics } = await supabase
+        .from('posts')
+        .select('count');
+      setTopicCount(topics?.[0]?.count || 0);
+
+      const { data: weekly } = await supabase
+        .from('posts')
+        .select('count')
+        .gte('created_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString());
+      setWeeklyPosts(weekly?.[0]?.count || 0);
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+    }
+  };
   
   return (
     <section id="community" className="section-spacing">
       <div className="container mx-auto container-padding">
+        {showAppNotification && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8 p-4 glassmorphism flex items-center justify-between"
+          >
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <Bell className="w-6 h-6 text-halo-green" />
+                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+              </div>
+              <p className="text-white">
+                Download the HALO App to unlock full features and real-time health monitoring
+              </p>
+            </div>
+            <div className="flex items-center gap-4">
+              <button 
+                className="button-primary flex items-center gap-2"
+                onClick={() => alert('App download coming soon!')}
+              >
+                <Download className="w-5 h-5" />
+                <span>Download App</span>
+              </button>
+              <button 
+                className="text-halo-gray-400 hover:text-white"
+                onClick={() => setShowAppNotification(false)}
+              >
+                ×
+              </button>
+            </div>
+          </motion.div>
+        )}
+
         <motion.div 
           ref={headerRef}
           initial={{ opacity: 0, y: 20 }}
@@ -69,17 +122,39 @@ const CommunitySection: React.FC = () => {
                 <MessageSquare className="w-5 h-5" />
                 <span>Recent Discussions</span>
               </h3>
-              <button className="button-secondary py-2 text-sm">Start a New Topic</button>
+              <button 
+                className="button-secondary py-2 text-sm"
+                onClick={() => alert('Sign in to start a discussion')}
+              >
+                Start a New Topic
+              </button>
             </div>
             
             <div className="space-y-6">
-              {forumPosts.map((post, index) => (
-                <ForumPostCard key={post.id} post={post} index={index} />
-              ))}
-            </div>
-            
-            <div className="text-center mt-8">
-              <button className="button-secondary">View All Discussions</button>
+              {isLoading ? (
+                <div className="text-center py-8">
+                  <div className="w-8 h-8 border-2 border-halo-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                  <p className="text-halo-gray-300">Loading discussions...</p>
+                </div>
+              ) : posts.length === 0 ? (
+                <div className="glassmorphism p-8 text-center">
+                  <MessageSquare className="w-12 h-12 text-halo-gray-400 mx-auto mb-4" />
+                  <h4 className="text-xl font-semibold mb-2">No Discussions Yet</h4>
+                  <p className="text-halo-gray-300 mb-4">
+                    Be the first to start a discussion in our community!
+                  </p>
+                  <button 
+                    className="button-primary"
+                    onClick={() => alert('Sign in to start a discussion')}
+                  >
+                    Start Discussion
+                  </button>
+                </div>
+              ) : (
+                posts.map((post, index) => (
+                  <ForumPostCard key={post.id} post={post} index={index} />
+                ))
+              )}
             </div>
           </div>
           
@@ -93,61 +168,21 @@ const CommunitySection: React.FC = () => {
               <div className="space-y-6">
                 <div className="flex justify-between items-center">
                   <span className="text-halo-gray-300">Active Members</span>
-                  <span className="text-xl font-semibold">12,458</span>
+                  <span className="text-xl font-semibold">{userCount}</span>
                 </div>
                 
                 <div className="h-px bg-halo-gray-700"></div>
                 
                 <div className="flex justify-between items-center">
                   <span className="text-halo-gray-300">Topics Created</span>
-                  <span className="text-xl font-semibold">3,872</span>
+                  <span className="text-xl font-semibold">{topicCount}</span>
                 </div>
                 
                 <div className="h-px bg-halo-gray-700"></div>
                 
                 <div className="flex justify-between items-center">
                   <span className="text-halo-gray-300">Posts This Week</span>
-                  <span className="text-xl font-semibold">684</span>
-                </div>
-              </div>
-              
-              <div className="mt-8 space-y-6">
-                <h4 className="font-medium">Top Contributors</h4>
-                
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <img 
-                      src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                      alt="User avatar" 
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
-                    <span>Emma Watson</span>
-                  </div>
-                  <span className="text-halo-gray-400">124 posts</span>
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <img 
-                      src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                      alt="User avatar" 
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
-                    <span>David Kim</span>
-                  </div>
-                  <span className="text-halo-gray-400">98 posts</span>
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <img 
-                      src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                      alt="User avatar" 
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
-                    <span>Sophia Martinez</span>
-                  </div>
-                  <span className="text-halo-gray-400">87 posts</span>
+                  <span className="text-xl font-semibold">{weeklyPosts}</span>
                 </div>
               </div>
             </div>
@@ -174,18 +209,18 @@ const ForumPostCard: React.FC<{ post: ForumPost; index: number }> = ({ post, ind
     >
       <div className="flex items-start gap-4">
         <img 
-          src={post.user.avatar} 
+          src={post.user.avatar_url || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'} 
           alt={post.user.name} 
           className="w-10 h-10 rounded-full object-cover"
         />
         <div className="flex-1">
           <div className="flex justify-between items-center mb-2">
             <span className="font-medium">{post.user.name}</span>
-            <span className="text-xs text-halo-gray-400">{post.date}</span>
+            <span className="text-xs text-halo-gray-400">
+              {new Date(post.created_at).toLocaleDateString()}
+            </span>
           </div>
-          <p className="text-sm text-halo-gray-300 mb-4">
-            {post.content}
-          </p>
+          <p className="text-sm text-halo-gray-300 mb-4">{post.content}</p>
           <div className="flex gap-4">
             <button className="flex items-center gap-1 text-sm text-halo-gray-400 hover:text-white transition-colors">
               <Heart className="w-4 h-4" />
