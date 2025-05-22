@@ -24,10 +24,10 @@ export interface ForumPost {
   id: number;
   user: {
     name: string;
-    avatar: string;
+    avatar_url?: string;
   };
   content: string;
-  date: string;
+  created_at: string;
   likes: number;
   replies: number;
 }
