@@ -30,7 +30,7 @@ const CommunitySection: React.FC = () => {
   });
 
   const MAX_RETRIES = 3;
-  const RETRY_DELAY = 5000; // Increased to 5 seconds
+  const RETRY_DELAY = 5000; // 5 seconds
 
   useEffect(() => {
     const checkSupabaseConnection = async () => {
@@ -40,28 +40,42 @@ const CommunitySection: React.FC = () => {
         return false;
       }
 
+      if (!navigator.onLine) {
+        setError('You are currently offline. Please check your internet connection and try again.');
+        setIsLoading(false);
+        return false;
+      }
+
       try {
-        // Test the connection with a simple query
-        const { error: testError } = await supabase.from('posts').select('count');
+        const { data, error: testError } = await supabase
+          .from('posts')
+          .select('count')
+          .limit(1)
+          .single();
+
         if (testError) {
-          throw testError;
+          if (testError.code === 'PGRST301') {
+            setError('Database tables not found. Please ensure your Supabase project is properly initialized.');
+          } else if (testError.code === '401') {
+            setError('Invalid Supabase credentials. Please check your connection settings.');
+          } else {
+            setError(`Unable to connect to Supabase: ${testError.message}`);
+          }
+          setIsLoading(false);
+          return false;
         }
+
         return true;
       } catch (err) {
         console.error('Supabase connection test failed:', err);
-        setError('Unable to connect to Supabase. Please check your connection and try again.');
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
+        setError(`Connection failed: ${errorMessage}. Please verify your internet connection and Supabase configuration.`);
         setIsLoading(false);
         return false;
       }
     };
 
     const initializeData = async () => {
-      if (!navigator.onLine) {
-        setError('You are currently offline. Please check your internet connection.');
-        setIsLoading(false);
-        return;
-      }
-
       const isConnected = await checkSupabaseConnection();
       if (!isConnected) return;
 
