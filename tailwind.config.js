@@ -32,12 +32,15 @@ export default {
         },
       },
       backgroundImage: {
-        'gradient-premium': 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
+        'gradient-premium': 'linear-gradient(135deg, rgba(10,15,28,0.95) 0%, rgba(0,0,0,0.98) 100%)',
         'gradient-cta': 'linear-gradient(135deg, #2196F3 0%, #00E676 100%)',
+        'gradient-dark': 'linear-gradient(135deg, #000000 0%, #0A0F1C 100%)',
       },
       boxShadow: {
         'premium': '0 8px 32px -4px rgba(0,0,0,0.1)',
-        'premium-hover': '0 16px 48px -8px rgba(0,0,0,0.2)',
+        'premium-hover': '0 16px 48px -8px rgba(33,150,243,0.2)',
+        'glow': '0 0 20px rgba(33,150,243,0.2)',
+        'glow-hover': '0 0 30px rgba(33,150,243,0.3)',
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
@@ -46,14 +49,18 @@ export default {
       },
       keyframes: {
         float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
+          '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+          '50%': { transform: 'translateY(-10px) rotate(2deg)' },
         },
         gradient: {
           '0%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
           '100%': { backgroundPosition: '0% 50%' },
         },
+      },
+      borderRadius: {
+        '2xl': '1rem',
+        '3xl': '1.5rem',
       },
     },
   },

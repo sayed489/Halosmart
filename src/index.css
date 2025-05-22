@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-gradient-to-b from-halo-dark to-halo-gray-800 min-h-screen text-halo-light font-sans;
+    @apply bg-gradient-dark min-h-screen text-halo-light font-sans;
   }
 
   ::-webkit-scrollbar {
@@ -26,29 +26,29 @@
 
 @layer components {
   .glassmorphism {
-    @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl;
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-premium;
   }
   
   .container-padding {
-    @apply px-4 sm:px-6 md:px-8 lg:px-16;
+    @apply px-6 sm:px-8 md:px-12 lg:px-20;
   }
   
   .section-spacing {
-    @apply py-16 md:py-24 lg:py-32;
+    @apply py-20 md:py-28 lg:py-36;
   }
   
   .nav-link {
-    @apply text-sm font-medium text-halo-gray-300 hover:text-white transition-colors;
+    @apply text-sm font-medium text-halo-gray-300 hover:text-white transition-all duration-300;
   }
   
   .button-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-halo-blue to-halo-green text-white font-medium rounded-full 
-    hover:shadow-lg hover:shadow-halo-green/20 transition-all duration-300;
+    @apply px-8 py-4 bg-gradient-to-r from-halo-blue to-halo-green text-white font-medium rounded-2xl
+    shadow-glow hover:shadow-glow-hover transform hover:scale-105 transition-all duration-300;
   }
   
   .button-secondary {
-    @apply px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 text-white font-medium rounded-full 
-    hover:bg-white/20 transition-all duration-300;
+    @apply px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/10 text-white font-medium rounded-2xl
+    hover:bg-white/10 transform hover:scale-105 transition-all duration-300;
   }
   
   .gradient-text {
@@ -56,15 +56,15 @@
   }
   
   .heading-1 {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight;
   }
   
   .heading-2 {
-    @apply text-3xl md:text-4xl font-bold leading-tight;
+    @apply text-3xl md:text-4xl font-bold leading-tight tracking-tight;
   }
   
   .heading-3 {
-    @apply text-2xl md:text-3xl font-bold leading-tight;
+    @apply text-2xl md:text-3xl font-bold leading-tight tracking-tight;
   }
 }
 
