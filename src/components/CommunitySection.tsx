@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Users, MessageSquare, Heart, MessageCircleMore, Download, Bell } from 'lucide-react';
+import { Users, MessageSquare, Heart, MessageCircleMore, Download, Bell, Database } from 'lucide-react';
 import { ForumPost } from '../types';
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client with empty values - will be updated when env vars are available
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+// Initialize Supabase client
 const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL || 'http://placeholder-url',
-  import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-key'
+  supabaseUrl || '',
+  supabaseKey || ''
 );
 
 const CommunitySection: React.FC = () => {
@@ -26,14 +29,14 @@ const CommunitySection: React.FC = () => {
   });
 
   useEffect(() => {
-    if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
-      setError('Supabase configuration is missing. Please connect to Supabase first.');
+    if (!supabaseUrl || !supabaseKey) {
+      setError('Please connect to Supabase using the "Connect to Supabase" button in the top right corner.');
       setIsLoading(false);
       return;
     }
     fetchPosts();
     fetchStats();
-  }, []);
+  }, [supabaseUrl, supabaseKey]);
 
   const fetchPosts = async () => {
     try {
@@ -74,6 +77,26 @@ const CommunitySection: React.FC = () => {
     }
   };
   
+  const renderErrorState = () => (
+    <div className="glassmorphism p-8 text-center">
+      <Database className="w-12 h-12 text-accent-error mx-auto mb-4" />
+      <h4 className="text-xl font-semibold mb-2">Connection Error</h4>
+      <p className="text-halo-gray-300 mb-4">{error}</p>
+      {(!supabaseUrl || !supabaseKey) ? (
+        <p className="text-sm text-halo-gray-400">
+          Once connected, this section will display community discussions and statistics.
+        </p>
+      ) : (
+        <button 
+          className="button-primary"
+          onClick={() => window.location.reload()}
+        >
+          Try Again
+        </button>
+      )}
+    </div>
+  );
+
   return (
     <section id="community" className="section-spacing">
       <div className="container mx-auto container-padding">
@@ -141,17 +164,7 @@ const CommunitySection: React.FC = () => {
             
             <div className="space-y-6">
               {error ? (
-                <div className="glassmorphism p-8 text-center">
-                  <MessageSquare className="w-12 h-12 text-accent-error mx-auto mb-4" />
-                  <h4 className="text-xl font-semibold mb-2">Error</h4>
-                  <p className="text-halo-gray-300 mb-4">{error}</p>
-                  <button 
-                    className="button-primary"
-                    onClick={() => window.location.reload()}
-                  >
-                    Try Again
-                  </button>
-                </div>
+                renderErrorState()
               ) : isLoading ? (
                 <div className="text-center py-8">
                   <div className="w-8 h-8 border-2 border-halo-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
