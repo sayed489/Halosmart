@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-gradient-dark min-h-screen text-halo-light font-sans;
+    @apply bg-gradient-to-r from-black to-halo-dark min-h-screen text-halo-light font-sans;
   }
 
   ::-webkit-scrollbar {
