@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { RingColor } from './types';
 
 // Components
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
-import FeaturesSection from './components/FeaturesSection';
-import TechSpecsSection from './components/TechSpecsSection';
-import AIInsightsSection from './components/AIInsightsSection';
-import CommunitySection from './components/CommunitySection';
-import BuySection from './components/BuySection';
-import Footer from './components/Footer';
+const FeaturesSection = lazy(() => import('./components/FeaturesSection'));
+const TechSpecsSection = lazy(() => import('./components/TechSpecsSection'));
+const AIInsightsSection = lazy(() => import('./components/AIInsightsSection'));
+const CommunitySection = lazy(() => import('./components/CommunitySection'));
+const BuySection = lazy(() => import('./components/BuySection'));
+const Footer = lazy(() => import('./components/Footer'));
 import ParticlesBackground from './components/ParticlesBackground';
 
 function App() {
@@ -19,7 +19,6 @@ function App() {
     setActiveRingColor(color);
   };
   
-  // Map colors to hex values for particles
   const colorMap: Record<RingColor, string> = {
     black: '#111111',
     green: '#1DB954',
@@ -31,12 +30,14 @@ function App() {
       <ParticlesBackground color={colorMap[activeRingColor]} />
       <Navbar />
       <HeroSection onColorChange={handleColorChange} />
-      <FeaturesSection />
-      <TechSpecsSection />
-      <AIInsightsSection />
-      <CommunitySection />
-      <BuySection activeColor={activeRingColor} onColorChange={handleColorChange} />
-      <Footer />
+      <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
+        <FeaturesSection />
+        <TechSpecsSection />
+        <AIInsightsSection />
+        <CommunitySection />
+        <BuySection activeColor={activeRingColor} onColorChange={handleColorChange} />
+        <Footer />
+      </Suspense>
     </div>
   );
 }
