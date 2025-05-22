@@ -30,36 +30,61 @@ const CommunitySection: React.FC = () => {
   });
 
   const MAX_RETRIES = 3;
-  const RETRY_DELAY = 2000; // 2 seconds
+  const RETRY_DELAY = 5000; // Increased to 5 seconds
 
   useEffect(() => {
-    if (!navigator.onLine) {
-      setError('You are currently offline. Please check your internet connection.');
-      setIsLoading(false);
-      return;
-    }
+    const checkSupabaseConnection = async () => {
+      if (!supabaseUrl || !supabaseKey) {
+        setError('Please connect to Supabase using the "Connect to Supabase" button in the top right corner.');
+        setIsLoading(false);
+        return false;
+      }
 
-    if (!supabaseUrl || !supabaseKey) {
-      setError('Please connect to Supabase using the "Connect to Supabase" button in the top right corner.');
-      setIsLoading(false);
-      return;
-    }
+      try {
+        // Test the connection with a simple query
+        const { error: testError } = await supabase.from('posts').select('count');
+        if (testError) {
+          throw testError;
+        }
+        return true;
+      } catch (err) {
+        console.error('Supabase connection test failed:', err);
+        setError('Unable to connect to Supabase. Please check your connection and try again.');
+        setIsLoading(false);
+        return false;
+      }
+    };
 
     const initializeData = async () => {
+      if (!navigator.onLine) {
+        setError('You are currently offline. Please check your internet connection.');
+        setIsLoading(false);
+        return;
+      }
+
+      const isConnected = await checkSupabaseConnection();
+      if (!isConnected) return;
+
       try {
         await Promise.all([fetchPosts(), fetchStats()]);
+        setError(null);
       } catch (err) {
+        console.error('Error initializing data:', err);
         if (retryCount < MAX_RETRIES) {
+          console.log(`Retrying in ${RETRY_DELAY/1000} seconds... (Attempt ${retryCount + 1}/${MAX_RETRIES})`);
           setTimeout(() => {
             setRetryCount(prev => prev + 1);
             initializeData();
           }, RETRY_DELAY);
+        } else {
+          setError('Unable to load data after multiple attempts. Please try again later.');
+          setIsLoading(false);
         }
       }
     };
 
     initializeData();
-  }, [retryCount, supabaseUrl, supabaseKey]);
+  }, [retryCount]);
 
   const fetchPosts = async () => {
     try {
@@ -70,24 +95,22 @@ const CommunitySection: React.FC = () => {
 
       if (fetchError) throw fetchError;
       setPosts(data || []);
-      setError(null);
     } catch (err) {
       console.error('Error fetching posts:', err);
-      setError('Unable to load posts. Please try again later.');
-      throw err;
-    } finally {
-      setIsLoading(false);
+      throw new Error('Unable to load posts. Please try again later.');
     }
   };
 
   const fetchStats = async () => {
     try {
+      const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+      
       const [usersResult, topicsResult, weeklyResult] = await Promise.all([
         supabase.from('users').select('count'),
         supabase.from('posts').select('count'),
         supabase.from('posts')
           .select('count')
-          .gte('created_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
+          .gte('created_at', oneWeekAgo)
       ]);
 
       if (usersResult.error) throw usersResult.error;
@@ -97,11 +120,11 @@ const CommunitySection: React.FC = () => {
       setUserCount(usersResult.data?.[0]?.count || 0);
       setTopicCount(topicsResult.data?.[0]?.count || 0);
       setWeeklyPosts(weeklyResult.data?.[0]?.count || 0);
-      setError(null);
     } catch (err) {
       console.error('Error fetching stats:', err);
-      setError('Unable to load community statistics. Please try again later.');
-      throw err;
+      throw new Error('Unable to load community statistics. Please try again later.');
+    } finally {
+      setIsLoading(false);
     }
   };
   
