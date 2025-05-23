@@ -1,44 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Users, MessageSquare, Heart, MessageCircleMore, Download, Bell } from 'lucide-react';
-
-// Mock data
-const mockPosts = [
-  {
-    id: 1,
-    user: {
-      name: "Alex Chen",
-      avatar_url: "https://images.pexels.com/photos/2269872/pexels-photo-2269872.jpeg?auto=compress&cs=tinysrgb&w=100"
-    },
-    content: "Just got my HALO ring! The sleep tracking is incredible, and the AI insights are spot-on.",
-    created_at: "2024-02-20T10:30:00Z",
-    likes: 42,
-    replies: 12
-  },
-  {
-    id: 2,
-    user: {
-      name: "Sarah Miller",
-      avatar_url: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100"
-    },
-    content: "The stress detection feature helped me identify my peak productivity hours. Game changer!",
-    created_at: "2024-02-19T15:45:00Z",
-    likes: 38,
-    replies: 8
-  },
-  {
-    id: 3,
-    user: {
-      name: "David Park",
-      avatar_url: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=100"
-    },
-    content: "Been using HALO for fitness tracking. The accuracy compared to my previous devices is remarkable.",
-    created_at: "2024-02-18T09:15:00Z",
-    likes: 56,
-    replies: 15
-  }
-];
+import { Users, MessageSquare, Bell, Download } from 'lucide-react';
 
 const CommunitySection: React.FC = () => {
   const [showAppNotification, setShowAppNotification] = useState(true);
@@ -103,8 +66,8 @@ const CommunitySection: React.FC = () => {
         </motion.div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
-            <div className="flex justify-between items-center">
+          <div className="lg:col-span-2">
+            <div className="flex justify-between items-center mb-8">
               <h3 className="text-xl font-semibold flex items-center gap-2 text-white">
                 <MessageSquare className="w-5 h-5 text-[#00e5ff]" />
                 <span>Recent Discussions</span>
@@ -117,10 +80,10 @@ const CommunitySection: React.FC = () => {
               </button>
             </div>
             
-            <div className="space-y-6">
-              {mockPosts.map((post, index) => (
-                <ForumPostCard key={post.id} post={post} index={index} />
-              ))}
+            <div className="p-8 rounded-2xl bg-white/5 backdrop-blur-[15px] border border-[#00e5ff]/30 shadow-[0_0_30px_rgba(0,229,255,0.1)]">
+              <p className="text-center text-[#c0c0c0]">
+                Be the first to start a discussion in our community!
+              </p>
             </div>
           </div>
           
@@ -134,21 +97,21 @@ const CommunitySection: React.FC = () => {
               <div className="space-y-8">
                 <div className="flex justify-between items-center">
                   <span className="text-[#c0c0c0]">Active Members</span>
-                  <span className="text-2xl font-semibold text-white">15.2K</span>
+                  <span className="text-2xl font-semibold text-white">0</span>
                 </div>
                 
                 <div className="h-px bg-white/10"></div>
                 
                 <div className="flex justify-between items-center">
                   <span className="text-[#c0c0c0]">Topics Created</span>
-                  <span className="text-2xl font-semibold text-white">2.8K</span>
+                  <span className="text-2xl font-semibold text-white">0</span>
                 </div>
                 
                 <div className="h-px bg-white/10"></div>
                 
                 <div className="flex justify-between items-center">
                   <span className="text-[#c0c0c0]">Posts This Week</span>
-                  <span className="text-2xl font-semibold text-white">486</span>
+                  <span className="text-2xl font-semibold text-white">0</span>
                 </div>
               </div>
             </div>
@@ -156,50 +119,6 @@ const CommunitySection: React.FC = () => {
         </div>
       </div>
     </section>
-  );
-};
-
-const ForumPostCard: React.FC<{ post: any; index: number }> = ({ post, index }) => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-  
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="p-6 rounded-2xl bg-white/5 backdrop-blur-[15px] border border-[#00e5ff]/30 shadow-[0_0_30px_rgba(0,229,255,0.1)] hover:shadow-[0_0_40px_rgba(0,229,255,0.2)] transition-all duration-300"
-    >
-      <div className="flex items-start gap-4">
-        <img 
-          src={post.user.avatar_url} 
-          alt={post.user.name} 
-          className="w-12 h-12 rounded-xl object-cover border border-[#00e5ff]/30"
-        />
-        <div className="flex-1">
-          <div className="flex justify-between items-center mb-2">
-            <span className="font-medium text-white">{post.user.name}</span>
-            <span className="text-sm text-[#c0c0c0]">
-              {new Date(post.created_at).toLocaleDateString()}
-            </span>
-          </div>
-          <p className="text-[#c0c0c0] mb-4">{post.content}</p>
-          <div className="flex gap-6">
-            <button className="flex items-center gap-2 text-sm text-[#c0c0c0] hover:text-[#00e5ff] transition-colors group">
-              <Heart className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span>{post.likes}</span>
-            </button>
-            <button className="flex items-center gap-2 text-sm text-[#c0c0c0] hover:text-[#00e5ff] transition-colors group">
-              <MessageCircleMore className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span>{post.replies}</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </motion.div>
   );
 };
 

@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-gradient-to-r from-black to-halo-dark min-h-screen text-halo-light font-sans;
+    @apply bg-gradient-to-r from-[#0a0a0a] to-[#000000] min-h-screen text-[#ffffff] font-sans;
   }
 
   ::-webkit-scrollbar {
@@ -12,21 +12,21 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-halo-gray-800;
+    @apply bg-[#0a0a0a];
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-halo-gray-600 rounded-full;
+    @apply bg-[#00e5ff]/20 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-halo-gray-500;
+    @apply bg-[#00e5ff]/30;
   }
 }
 
 @layer components {
   .glassmorphism {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-premium;
+    @apply bg-white/5 backdrop-blur-[15px] border border-[#00e5ff]/30 rounded-2xl shadow-[0_0_30px_rgba(0,229,255,0.1)];
   }
   
   .container-padding {
@@ -38,21 +38,21 @@
   }
   
   .nav-link {
-    @apply text-sm font-medium text-halo-gray-300 hover:text-white transition-all duration-300;
+    @apply text-sm font-medium text-[#c0c0c0] hover:text-white transition-all duration-300;
   }
   
   .button-primary {
-    @apply px-8 py-4 bg-gradient-to-r from-halo-blue to-halo-green text-white font-medium rounded-2xl
-    shadow-glow hover:shadow-glow-hover transform hover:scale-105 transition-all duration-300;
+    @apply px-8 py-4 bg-gradient-to-r from-[#00b7eb] to-[#00ff00] text-white font-medium rounded-2xl
+    shadow-[0_0_20px_rgba(0,229,255,0.2)] hover:shadow-[0_0_30px_rgba(0,229,255,0.3)] transform hover:scale-105 transition-all duration-300;
   }
   
   .button-secondary {
-    @apply px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/10 text-white font-medium rounded-2xl
+    @apply px-8 py-4 bg-white/5 backdrop-blur-[15px] border border-[#00e5ff]/30 text-white font-medium rounded-2xl
     hover:bg-white/10 transform hover:scale-105 transition-all duration-300;
   }
   
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-halo-blue to-halo-green;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#00b7eb] to-[#00ff00];
   }
   
   .heading-1 {

@@ -8,11 +8,11 @@ export default {
       },
       colors: {
         halo: {
-          black: '#111111',
-          green: '#00E676',
-          blue: '#2196F3',
+          black: '#0a0a0a',
+          green: '#00ff00',
+          blue: '#00b7eb',
           dark: '#000000',
-          light: '#FFFFFF',
+          light: '#ffffff',
           gray: {
             100: '#F8F9FA',
             200: '#E9ECEF',
@@ -26,21 +26,21 @@ export default {
           },
         },
         accent: {
-          success: '#4CAF50',
+          success: '#00e5ff',
           warning: '#FFC107',
           error: '#F44336',
         },
       },
       backgroundImage: {
-        'gradient-premium': 'linear-gradient(135deg, rgba(10,15,28,0.95) 0%, rgba(0,0,0,0.98) 100%)',
-        'gradient-cta': 'linear-gradient(135deg, #2196F3 0%, #00E676 100%)',
-        'gradient-dark': 'linear-gradient(135deg, #000000 0%, #0A0F1C 100%)',
+        'gradient-premium': 'linear-gradient(135deg, #0a0a0a 0%, #000000 100%)',
+        'gradient-cta': 'linear-gradient(135deg, #00b7eb 0%, #00ff00 100%)',
+        'gradient-dark': 'linear-gradient(135deg, #000000 0%, #0a0a0a 100%)',
       },
       boxShadow: {
-        'premium': '0 8px 32px -4px rgba(0,0,0,0.1)',
-        'premium-hover': '0 16px 48px -8px rgba(33,150,243,0.2)',
-        'glow': '0 0 20px rgba(33,150,243,0.2)',
-        'glow-hover': '0 0 30px rgba(33,150,243,0.3)',
+        'premium': '0 8px 32px -4px rgba(0,229,255,0.1)',
+        'premium-hover': '0 16px 48px -8px rgba(0,229,255,0.2)',
+        'glow': '0 0 20px rgba(0,229,255,0.2)',
+        'glow-hover': '0 0 30px rgba(0,229,255,0.3)',
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
