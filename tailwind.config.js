@@ -10,10 +10,7 @@ export default {
         'halo': {
           black: '#0A0A0A',
           light: '#F5F5F5',
-          cyan: {
-            DEFAULT: '#00E5FF',
-            rgb: '0, 229, 255'
-          },
+          cyan: '#00E5FF',
           green: '#4CAF50'
         }
       },

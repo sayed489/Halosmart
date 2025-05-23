@@ -22,13 +22,13 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-halo-cyan/20 rounded-full hover:bg-halo-cyan/30;
+    @apply bg-[#00E5FF]/20 rounded-full hover:bg-[#00E5FF]/30;
   }
 }
 
 @layer components {
   .glassmorphism {
-    @apply bg-white/5 backdrop-blur-[15px] border border-halo-cyan/30 rounded-2xl;
+    @apply bg-white/5 backdrop-blur-[15px] border border-[#00E5FF]/30 rounded-2xl;
     box-shadow: 0 8px 32px rgba(0, 229, 255, 0.1);
   }
 
