@@ -22,28 +22,27 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-halo-cyan/20 rounded-full hover:bg-halo-cyan/30;
+    @apply bg-halo-cyan rounded-full hover:bg-halo-cyan/50;
   }
 }
 
 @layer components {
   .glassmorphism {
-    @apply bg-white/5 backdrop-blur-[15px] border border-halo-cyan/30 rounded-2xl;
-    box-shadow: 0 8px 32px rgba(0, 229, 255, 0.1);
+    @apply bg-gradient-card backdrop-blur-[15px] border border-halo-cyan/30 rounded-2xl shadow-card;
   }
 
   .button-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-halo-cyan to-halo-green text-white font-medium rounded-xl
+    @apply px-6 py-3 bg-gradient-text text-halo-light font-medium rounded-xl
     shadow-glow hover:shadow-glow-strong transform hover:scale-105 transition-all duration-300;
   }
 
   .button-secondary {
-    @apply px-6 py-3 glassmorphism text-white font-medium rounded-xl
+    @apply px-6 py-3 glassmorphism text-halo-light font-medium rounded-xl
     hover:bg-white/10 transform hover:scale-105 transition-all duration-300;
   }
 
   .nav-link {
-    @apply text-sm font-medium text-[#c0c0c0] hover:text-white transition-colors;
+    @apply text-sm font-medium text-halo-silver hover:text-halo-light transition-colors;
   }
 
   .section-spacing {
@@ -55,11 +54,11 @@
   }
 
   .heading-1 {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold;
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold text-halo-light;
   }
 
   .heading-2 {
-    @apply text-3xl md:text-4xl font-bold;
+    @apply text-3xl md:text-4xl font-bold text-halo-light;
   }
 
   .gradient-text {
