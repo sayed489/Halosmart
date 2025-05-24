@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        halo: {
+        'halo': {
           black: '#0a0a0a',
           dark: '#000000',
           light: '#ffffff',
@@ -25,8 +25,8 @@ export default {
         }
       },
       backgroundImage: {
-        'gradient-premium': 'linear-gradient(135deg, #0a0a0a 0%, #000000 100%)',
-        'gradient-glow': 'linear-gradient(135deg, rgba(0,229,255,0.1) 0%, rgba(0,255,0,0.1) 100%)',
+        'gradient-premium': 'linear-gradient(135deg, rgba(0,229,255,0.1) 0%, rgba(0,255,0,0.1) 100%)',
+        'gradient-glow': 'linear-gradient(135deg, rgba(0,229,255,0.2) 0%, rgba(0,255,0,0.2) 100%)',
         'gradient-text': 'linear-gradient(135deg, #00e5ff 0%, #00ff00 100%)',
         'gradient-cta': 'linear-gradient(135deg, #00e5ff 0%, #00ff00 100%)'
       },

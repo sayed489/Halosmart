@@ -21,16 +21,16 @@ function App() {
   
   const colorMap: Record<RingColor, string> = {
     black: '#111111',
-    green: '#1DB954',
-    blue: '#0070F3',
+    green: '#00ff00',
+    blue: '#00e5ff',
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-halo-black">
       <ParticlesBackground color={colorMap[activeRingColor]} />
       <Navbar />
       <HeroSection onColorChange={handleColorChange} />
-      <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
+      <Suspense fallback={<div className="h-screen flex items-center justify-center text-halo-cyan">Loading...</div>}>
         <FeaturesSection />
         <TechSpecsSection />
         <AIInsightsSection />
