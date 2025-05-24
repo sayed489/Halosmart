@@ -90,4 +90,4 @@
   /* Ensure community tab uses enhanced glassmorphism */
   div[class*="tab"] {
     background: rgba(255, 255, 255, 0.03) !important;
-    backdrop-filter: blur(20
+    backdrop-filter: blur(20)
