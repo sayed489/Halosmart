@@ -33,7 +33,7 @@
   }
 
   .button-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-halo-cyan to-halo-green text-white font-medium rounded-xl
+    @apply px-6 py-3 bg-gradient-cta text-white font-medium rounded-xl
     shadow-glow hover:shadow-glow-strong transform hover:scale-105 transition-all duration-300;
   }
 

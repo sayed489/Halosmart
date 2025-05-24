@@ -6,9 +6,6 @@ export default {
       colors: {
         halo: {
           black: '#0a0a0a',
-          green: '#00ff00',
-          blue: '#00b7eb',
-          cyan: '#00e5ff',
           dark: '#000000',
           light: '#ffffff',
           gray: {
@@ -21,18 +18,23 @@ export default {
             700: '#495057',
             800: '#343A40',
             900: '#212529'
-          }
+          },
+          cyan: '#00e5ff',
+          green: '#00ff00',
+          blue: '#00b7eb'
         }
       },
       backgroundImage: {
         'gradient-premium': 'linear-gradient(135deg, #0a0a0a 0%, #000000 100%)',
         'gradient-glow': 'linear-gradient(135deg, rgba(0,229,255,0.1) 0%, rgba(0,255,0,0.1) 100%)',
-        'gradient-text': 'linear-gradient(135deg, #00e5ff 0%, #00ff00 100%)'
+        'gradient-text': 'linear-gradient(135deg, #00e5ff 0%, #00ff00 100%)',
+        'gradient-cta': 'linear-gradient(135deg, #00e5ff 0%, #00ff00 100%)'
       },
       boxShadow: {
         'glow': '0 0 20px rgba(0,229,255,0.2)',
         'glow-strong': '0 0 30px rgba(0,229,255,0.3)',
-        'premium': '0 8px 32px rgba(0,229,255,0.1)'
+        'premium': '0 8px 32px rgba(0,229,255,0.1)',
+        'premium-hover': '0 12px 40px rgba(0,229,255,0.2)'
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
