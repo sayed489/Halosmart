@@ -8,7 +8,7 @@
   }
   
   body {
-    background: #000000 !important;
+    background: #0d1b2a !important; /* Deep space blue */
     color: #b0b0b0 !important;
     font-family: 'Arial', sans-serif;
     text-rendering: optimizeLegibility;
@@ -20,17 +20,17 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #000000;
+    background: #0d1b2a;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(212, 175, 55, 0.5); /* Gold scrollbar */
+    background: rgba(0, 212, 255, 0.5); /* Neon cyan scrollbar */
     border-radius: 9999px;
     transition: background 0.3s ease;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(212, 175, 55, 0.8);
+    background: rgba(0, 212, 255, 0.8);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -42,77 +42,49 @@
   .glassmorphism {
     background: rgba(255, 255, 255, 0.03) !important;
     backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(212, 175, 55, 0.5) !important;
+    border: 1px solid rgba(0, 212, 255, 0.5) !important;
     border-radius: 20px !important;
-    box-shadow: 0 8px 40px rgba(212, 175, 55, 0.2) !important;
+    box-shadow: 0 8px 40px rgba(0, 212, 255, 0.2) !important;
     transition: transform 0.3s ease, box-shadow 0.3s ease !important;
   }
 
   .glassmorphism:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 48px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 12px 48px rgba(0, 212, 255, 0.4);
   }
 
   .button-primary {
     padding: 12px 24px !important;
-    background: linear-gradient(45deg, #d4af37, #f5e050) !important; /* Light gold gradient */
-    color: #333333 !important; /* Dark charcoal for visibility */
+    background: #1b263b !important; /* Dark blue-gray */
+    border: 2px solid #00d4ff !important; /* Neon cyan border */
+    color: #ffffff !important; /* Bright white text */
     font-weight: 600 !important;
     border-radius: 12px !important;
-    box-shadow: 0 0 15px rgba(245, 224, 80, 0.7) !important; /* Subtle gold glow */
     transform: scale(1) !important;
     transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-    position: relative;
-    overflow: hidden;
-    animation: pulseGlow 2s infinite;
-  }
-
-  .button-primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-    animation: shine 3s infinite;
   }
 
   .button-primary:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 25px rgba(245, 224, 80, 1);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
   }
 
   .button-secondary {
     padding: 12px 24px !important;
     background: rgba(255, 255, 255, 0.05) !important;
     backdrop-filter: blur(15px) !important;
-    border: 1px solid rgba(212, 175, 55, 0.4) !important;
-    color: #333333 !important;
+    border: 1px solid rgba(0, 212, 255, 0.4) !important;
+    color: #ffffff !important;
     font-weight: 500 !important;
     border-radius: 12px !important;
     transform: scale(1) !important;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease !important;
-    position: relative;
-    overflow: hidden;
-    animation: pulseGlow 2s infinite;
-  }
-
-  .button-secondary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-    animation: shine 3s infinite;
   }
 
   .button-secondary:hover {
     background: rgba(255, 255, 255, 0.15);
     transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(245, 224, 80, 0.9);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
   }
 
   .nav-link {
@@ -123,7 +95,7 @@
   }
 
   .nav-link:hover {
-    color: #ffffff;
+    color: #00d4ff; /* Neon cyan on hover */
   }
 
   .section-spacing {
@@ -160,24 +132,12 @@
   .heading-1 {
     font-size: 36px;
     font-weight: 700;
-    background: linear-gradient(90deg, #ffffff 50%, #e8b923 50%) !important; /* White to warm gold */
+    background: linear-gradient(90deg, #ffffff 50%, #00d4ff 50%) !important; /* White to neon cyan */
     -webkit-background-clip: text !important;
     background-clip: text !important;
     color: transparent !important;
     position: relative;
     display: inline-block;
-    animation: pulseGlow 2s infinite;
-  }
-
-  .heading-1::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-    animation: shine 3s infinite;
   }
 
   @media (min-width: 768px) {
@@ -195,24 +155,12 @@
   .heading-2 {
     font-size: 30px;
     font-weight: 700;
-    background: linear-gradient(90deg, #ffffff 50%, #e8b923 50%) !important;
+    background: linear-gradient(90deg, #ffffff 50%, #00d4ff 50%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     color: transparent !important;
     position: relative;
     display: inline-block;
-    animation: pulseGlow 2s infinite;
-  }
-
-  .heading-2::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-    animation: shine 3s infinite;
   }
 
   @media (min-width: 768px) {
@@ -222,80 +170,40 @@
   }
 
   .gradient-text {
-    background: linear-gradient(90deg, #ffffff 50%, #e8b923 50%) !important;
+    background: linear-gradient(90deg, #ffffff 50%, #00d4ff 50%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     color: transparent !important;
     position: relative;
     display: inline-block;
-    animation: pulseGlow 2s infinite;
   }
 
-  .gradient-text::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-    animation: shine 3s infinite;
-  }
-
-  /* Apply glassmorphism to all sections with black background */
+  /* Apply glassmorphism to all sections */
   div[class*="section"], div[class*="card"], div[class*="tab"], div[class*="stats"], div[class*="insight"] {
-    background: #000000 !important;
+    background: #0d1b2a !important;
     backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(212, 175, 55, 0.5) !important;
+    border: 1px solid rgba(0, 212, 255, 0.5) !important;
     border-radius: 20px !important;
-    box-shadow: 0 8px 40px rgba(212, 175, 55, 0.2) !important;
+    box-shadow: 0 8px 40px rgba(0, 212, 255, 0.2) !important;
     transition: transform 0.3s ease, box-shadow 0.3s ease !important;
   }
 
   div[class*="section"]:hover, div[class*="card"]:hover, div[class*="tab"]:hover, div[class*="stats"]:hover, div[class*="insight"]:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 48px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 12px 48px rgba(0, 212, 255, 0.4);
   }
 
-  /* Ensure section headings follow split color with shine */
+  /* Ensure section headings follow split color */
   div[class*="section"] h1,
   div[class*="section"] h2,
   div[class*="section"] h3 {
-    background: linear-gradient(90deg, #ffffff 50%, #e8b923 50%) !important;
+    background: linear-gradient(90deg, #ffffff 50%, #00d4ff 50%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     color: transparent !important;
     position: relative;
     display: inline-block;
-    animation: pulseGlow 2s infinite;
   }
-
-  div[class*="section"] h1::before,
-  div[class*="section"] h2::before,
-  div[class*="section"] h3::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-    animation: shine 3s infinite;
-  }
-}
-
-/* Shine animation for reflective effect */
-@keyframes shine {
-  0% { left: -100%; }
-  50% { left: 100%; }
-  100% { left: 100%; }
-}
-
-/* Pulse glow animation for subtle glowing effect */
-@keyframes pulseGlow {
-  0% { box-shadow: 0 0 15px rgba(245, 224, 80, 0.7); }
-  50% { box-shadow: 0 0 25px rgba(245, 224, 80, 1); }
-  100% { box-shadow: 0 0 15px rgba(245, 224, 80, 0.7); }
 }
 
 /* Force styles for all sections, buttons, and icons */
@@ -304,42 +212,22 @@ div, section {
 }
 
 button, a[class*="btn"], a[class*="highlight"], i[class*="icon"] {
-  background: linear-gradient(45deg, #d4af37, #f5e050) !important;
-  color: #333333 !important;
-  box-shadow: 0 0 15px rgba(245, 224, 80, 0.7) !important;
-  position: relative;
-  overflow: hidden;
-  animation: pulseGlow 2s infinite;
+  background: #1b263b !important;
+  border: 2px solid #00d4ff !important;
+  color: #ffffff !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-button::before, a[class*="btn"]::before, a[class*="highlight"]::before, i[class*="icon"]::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-  animation: shine 3s infinite;
+button:hover, a[class*="btn"]:hover, a[class*="highlight"]:hover, i[class*="icon"]:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
 }
 
-/* Symbols in warm gold with shine and glow */
+/* Symbols in neon cyan */
 i, span[class*="icon"], div[class*="symbol"] {
-  color: #e8b923 !important;
+  color: #00d4ff !important;
   position: relative;
   display: inline-block;
-  animation: pulseGlow 2s infinite;
-}
-
-i::before, span[class*="icon"]::before, div[class*="symbol"]::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-  animation: shine 3s infinite;
 }
 
 p, span, a, div:not(.particles-container) {
