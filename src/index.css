@@ -24,13 +24,13 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(0, 229, 255, 0.5);
+    background: rgba(224, 224, 224, 0.5); /* Silver scrollbar */
     border-radius: 9999px;
     transition: background 0.3s ease;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 229, 255, 0.8);
+    background: rgba(224, 224, 224, 0.8);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -42,39 +42,39 @@
   .glassmorphism {
     background: rgba(255, 255, 255, 0.03) !important;
     backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(0, 255, 255, 0.5) !important;
+    border: 1px solid rgba(224, 224, 224, 0.5) !important; /* Silver border */
     border-radius: 20px !important;
-    box-shadow: 0 8px 40px rgba(0, 229, 255, 0.2) !important;
+    box-shadow: 0 8px 40px rgba(224, 224, 224, 0.2) !important; /* Silver glow */
     transition: transform 0.3s ease, box-shadow 0.3s ease !important;
   }
 
   .glassmorphism:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 48px rgba(0, 229, 255, 0.4);
+    box-shadow: 0 12px 48px rgba(224, 224, 224, 0.4);
   }
 
   .button-primary {
     padding: 12px 24px !important;
-    background: #08363b !important; /* Dark teal for button background */
-    color: #02a9bc !important; /* Lighter cyan for button text */
+    background: #808080 !important; /* Darker silver for button background */
+    color: #e0e0e0 !important; /* Lighter silver for button text */
     font-weight: 600 !important;
     border-radius: 12px !important;
-    box-shadow: 0 0 20px rgba(2, 169, 188, 0.7) !important; /* Adjusted glow to match button text color */
+    box-shadow: 0 0 20px rgba(224, 224, 224, 0.7) !important; /* Silver glow */
     transform: scale(1) !important;
     transition: transform 0.3s ease, box-shadow 0.3s ease !important;
   }
 
   .button-primary:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 30px rgba(2, 169, 188, 1);
+    box-shadow: 0 0 30px rgba(224, 224, 224, 1);
   }
 
   .button-secondary {
     padding: 12px 24px !important;
     background: rgba(255, 255, 255, 0.05) !important;
     backdrop-filter: blur(15px) !important;
-    border: 1px solid rgba(0, 255, 255, 0.4) !important;
-    color: #02a9bc !important; /* Lighter cyan for secondary button text */
+    border: 1px solid rgba(224, 224, 224, 0.4) !important;
+    color: #e0e0e0 !important; /* Lighter silver for secondary button text */
     font-weight: 500 !important;
     border-radius: 12px !important;
     transform: scale(1) !important;
@@ -84,7 +84,7 @@
   .button-secondary:hover {
     background: rgba(255, 255, 255, 0.15);
     transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(2, 169, 188, 0.6);
+    box-shadow: 0 0 25px rgba(224, 224, 224, 0.6);
   }
 
   .nav-link {
@@ -132,7 +132,7 @@
   .heading-1 {
     font-size: 36px;
     font-weight: 700;
-    background: linear-gradient(90deg, #ffffff 50%, #00e5ff 50%) !important;
+    background: linear-gradient(90deg, #ffffff 50%, #e0e0e0 50%) !important; /* Split white and silver */
     -webkit-background-clip: text !important;
     background-clip: text !important;
     color: transparent !important;
@@ -153,7 +153,7 @@
   .heading-2 {
     font-size: 30px;
     font-weight: 700;
-    background: linear-gradient(90deg, #ffffff 50%, #00e5ff 50%) !important;
+    background: linear-gradient(90deg, #ffffff 50%, #e0e0e0 50%) !important; /* Split white and silver */
     -webkit-background-clip: text !important;
     background-clip: text !important;
     color: transparent !important;
@@ -166,7 +166,7 @@
   }
 
   .gradient-text {
-    background: linear-gradient(90deg, #ffffff 50%, #00e5ff 50%) !important;
+    background: linear-gradient(90deg, #ffffff 50%, #e0e0e0 50%) !important; /* Split white and silver */
     -webkit-background-clip: text !important;
     background-clip: text !important;
     color: transparent !important;
@@ -176,22 +176,22 @@
   div[class*="section"], div[class*="card"], div[class*="tab"], div[class*="stats"], div[class*="insight"] {
     background: #000000 !important;
     backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(0, 255, 255, 0.5) !important;
+    border: 1px solid rgba(224, 224, 224, 0.5) !important;
     border-radius: 20px !important;
-    box-shadow: 0 8px 40px rgba(0, 229, 255, 0.2) !important;
+    box-shadow: 0 8px 40px rgba(224, 224, 224, 0.2) !important;
     transition: transform 0.3s ease, box-shadow 0.3s ease !important;
   }
 
   div[class*="section"]:hover, div[class*="card"]:hover, div[class*="tab"]:hover, div[class*="stats"]:hover, div[class*="insight"]:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 48px rgba(0, 229, 255, 0.4);
+    box-shadow: 0 12px 48px rgba(224, 224, 224, 0.4);
   }
 
   /* Ensure section headings follow split color */
   div[class*="section"] h1,
   div[class*="section"] h2,
   div[class*="section"] h3 {
-    background: linear-gradient(90deg, #ffffff 50%, #00e5ff 50%) !important;
+    background: linear-gradient(90deg, #ffffff 50%, #e0e0e0 50%) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     color: transparent !important;
@@ -206,8 +206,8 @@
   height: 100%;
   pointer-events: none;
   z-index: -1;
-  background: radial-gradient(circle, rgba(0, 255, 0, 0.1) 1px, transparent 1px),
-              radial-gradient(circle, rgba(0, 183, 235, 0.1) 1px, transparent 1px);
+  background: radial-gradient(circle, rgba(224, 224, 224, 0.1) 1px, transparent 1px),
+              radial-gradient(circle, rgba(192, 192, 192, 0.1) 1px, transparent 1px);
   background-size: 50px 50px;
   animation: particleAnimation 20s linear infinite;
 }
@@ -223,14 +223,14 @@ div, section {
 }
 
 button, a[class*="btn"], a[class*="highlight"], i[class*="icon"] {
-  background: #08363b !important; /* Dark teal for buttons/icons */
-  color: #02a9bc !important; /* Lighter cyan for button/icon text */
-  box-shadow: 0 0 20px rgba(2, 169, 188, 0.7) !important;
+  background: #808080 !important; /* Darker silver for buttons/icons */
+  color: #e0e0e0 !important; /* Lighter silver for button/icon text */
+  box-shadow: 0 0 20px rgba(224, 224, 224, 0.7) !important;
 }
 
-/* Symbols in light cyan */
+/* Symbols in soft silver */
 i, span[class*="icon"], div[class*="symbol"] {
-  color: #66e6fc !important;
+  color: #d3d3d3 !important; /* Soft silver for symbols */
 }
 
 p, span, a, div:not(.particles-container) {
